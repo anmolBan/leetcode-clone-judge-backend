@@ -7,7 +7,7 @@ import axios from 'axios';
 
 const app = express();
 app.use(cors());
-const port = 3001;
+const port = process.env.PORT || 3001;
 
 app.use(bodyParser.json());
 
@@ -46,7 +46,7 @@ app.post('/submit-code', async (req: any, res: any) => {
       }
     }
     const correctCode = code.toString();
-    await axios.post('http://localhost:3000/api/routes/submission',
+    await axios.post(`${process.env.BACKEND}/api/routes/submission`,
       {
         userId,
         problemId,
@@ -153,5 +153,5 @@ function runCodeInWorker(
 }
 
 app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+  console.log(`Server running on port:${port}`);
 });
